@@ -19,7 +19,7 @@ struct TokenNewAPI: Requestable {
     
     init()
     {
-        let token = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZTc0Y2Y3Y2IwNDdkOGE4MWRiYjcxYWNkMmYxZTVmYSIsInN1YiI6IjYwNWE4MjA4NDdjOWZiMDA2YWJmMzYzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1cO8-Gn_S7fPoaNO-7LbnJpe-gXbTRlL5OKzxPsH4cY"
+        let token = ""
         headers = ["Content-Type":"application/json;charset=utf-8", "authorization": "Bearer \(token)",]
         
         endpoint = "/request_token"

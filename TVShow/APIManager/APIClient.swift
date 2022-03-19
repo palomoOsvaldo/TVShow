@@ -30,7 +30,7 @@ public enum APIClient {
         case .authentication:
             return "/auth"
         case .key:
-            return "?apyKey=ae74cf7cb047d8a81dbb71acd2f1e5fa"
+            return "?apyKey="
         }
     }
 }
