@@ -20,7 +20,7 @@ class TVShowViewController: UIViewController {
     lazy var layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-        layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2-15, height: UIScreen.main.bounds.width/2-15)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width/2-15, height: 420)
         return layout
     }()
     
@@ -108,16 +108,16 @@ extension TVShowViewController: UICollectionViewDelegate, UICollectionViewDataSo
             cell.btnFav.setImage(UIImage(systemName: "star.fill"), for: .normal)
         }
         
-//        if !(currentTV.posterPath?.isEmpty ?? true) {
-//            let urlString = APIClient.hostImage.value + currentTV.posterPath!
-//            cell.imgShow.sd_setImage(with: URL(string: urlString)) { image, error, cache, url in
-//                if error == nil {
-//
-//                } else {
-//                    print(error!.localizedDescription)
-//                }
-//            }
-//        }
+        if !(currentTV.posterPath?.isEmpty ?? true) {
+            let urlString = APIClient.hostImage.value + currentTV.posterPath!
+            cell.imgShow.sd_setImage(with: URL(string: urlString)) { image, error, cache, url in
+                if error == nil {
+
+                } else {
+                    print(error!.localizedDescription)
+                }
+            }
+        }
         return cell
     }
     
