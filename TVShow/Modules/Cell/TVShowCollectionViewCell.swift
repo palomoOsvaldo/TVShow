@@ -88,6 +88,7 @@ class TVShowCollectionViewCell: UICollectionViewCell {
         lblSummary.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
         
         contentView.bottomAnchor.constraint(equalTo: lblSummary.bottomAnchor, constant: 10).isActive = true
+        contentView.bottomAnchor.constraint(equalTo: lblSummary.bottomAnchor, constant: 10).isActive = true
     }
     
     required init?(coder: NSCoder) {
