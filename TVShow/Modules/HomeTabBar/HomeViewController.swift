@@ -13,15 +13,28 @@ import UIKit
 class HomeViewController: UITabBarController, HomeViewProtocol {
 
     var presenter: HomePresenterProtocol?
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    convenience init() {
+        self.init(nibName: nil, bundle: nil)
+        self.view.backgroundColor = .black
+        self.presenter?.setupViewControllers()
+    }
+    
+    required init?(coder: NSCoder) { return nil }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.view.backgroundColor = .black
+        debugPrint(self.view.bounds.size)
     }
     
     func display(_ viewControllers: [UIViewController]) {
         self.viewControllers = viewControllers
-        let title = ["TV Shows", "Favorites"]
+        let title = ["TV Shows", "Profile"]
         let image = ["rectangle.stack.fill", "star.fill"]
         
         var cont = 0

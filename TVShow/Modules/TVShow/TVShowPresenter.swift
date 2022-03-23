@@ -21,5 +21,21 @@ class TVShowPresenter: TVShowPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
+    
+    func createTVShow(selectedOption: MenuSGV) {
+        interactor?.willRetriveShows(selectedOption: selectedOption)
+    }
+    
+    func selectShow(selectShow: Result) {
+        router.goingToDetailShow(selectShow: selectShow)
+    }
+    
+    func didRecoverShows(shows: [Result]) {
+        view?.succesShows(shows: shows)
+    }
+    
+    func showAlert(title: String, message: String) {
+        view?.showAlert(title: title, message: message)
+    }
 
 }

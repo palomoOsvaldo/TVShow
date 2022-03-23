@@ -44,30 +44,18 @@ public enum APIError: Error {
         }
     }
     
-//    public func getMessageFromService() -> [String] {
-//        switch self {
-//        case .unexpectedStatusCode(_, let data), .badResponse(let data), .malformedResponse(let data):
-//            guard let dataFromService = data, let jsonDecoder = try? JSONDecoder().decode(ResponseBase<EmptyResponse>.self, from: dataFromService) else {
-//                return ["Error generico"]
-//            }
-//            
-//            print(dataFromService)
-//            print(jsonDecoder)
-//            
-//            var errores = [String]()
-//            jsonDecoder.detalles?.forEach({ item in
-//                errores.append(item)
-//            })
-//            
-//            if errores.first == "" {
-//                errores.removeAll()
-//                errores.append(jsonDecoder.mensaje)
-//            }
-//                        
-//            return errores
-//            
-//        default:
-//            return ["Sin Error"]
-//        }
-//    }
+    public func getMessageFromService() -> String {
+        switch self {
+        case .unexpectedStatusCode(_, let data), .badResponse(let data), .malformedResponse(let data):
+            guard let dataFromService = data, let jsonDecoder = try? JSONDecoder().decode(ResponseBase.self, from: dataFromService) else {
+                return "Error generico"
+            }
+            
+            return jsonDecoder.status_message ?? "genric Error"
+            
+            
+        default:
+            return "without Error"
+        }
+    }
 }

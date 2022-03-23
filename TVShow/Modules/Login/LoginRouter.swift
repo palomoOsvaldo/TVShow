@@ -27,4 +27,10 @@ class LoginRouter: LoginWireframeProtocol {
         
         return view
     }
+    
+    func goingToHome() {
+        let vc = HomeRouter.createModule()
+        vc.modalPresentationStyle = .fullScreen
+        viewController?.present(vc, animated: true, completion: nil)
+    }
 }

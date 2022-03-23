@@ -9,9 +9,10 @@ import Foundation
 
 public enum APIClient {
     case host(APILayerEnviroment)
-    case movie
+    case hostImage
+    case tv
     case authentication
-    case key
+    case session
     
     
     public var value: String {
@@ -23,14 +24,16 @@ public enum APIClient {
             case .qa:
                 return "https://api.themoviedb.org/4"
             case .release:
-                return "https://api.themoviedb.org/4"
+                return "https://api.themoviedb.org/3"
             }
-        case .movie:
-            return "/movie"
+        case .hostImage:
+            return "https://image.tmdb.org/t/p/w500/"
+        case .tv:
+            return "/tv"
         case .authentication:
-            return "/auth"
-        case .key:
-            return "?apyKey="
+            return "/authentication/token"
+        case .session:
+            return "authentication/session"
         }
     }
 }

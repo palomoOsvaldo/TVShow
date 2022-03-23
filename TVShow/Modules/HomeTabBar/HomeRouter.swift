@@ -31,7 +31,7 @@ class HomeRouter: HomeWireframeProtocol {
     }
     
     func getViewControllers() -> [UIViewController] {
-        let vcs = [TVShowRouter.createModule(typeView: .ShowTV), TVShowRouter.createModule(typeView: .Favorites)]
+        let vcs = [TVShowRouter.createModule(), ProfileViewController()]
         return vcs.map { UINavigationController(rootViewController: $0) }
     }
 }

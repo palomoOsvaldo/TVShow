@@ -12,21 +12,26 @@ import Foundation
 
 //MARK: Wireframe -
 protocol TVShowWireframeProtocol: class {
-
+    func goingToDetailShow(selectShow: Result)
 }
 //MARK: Presenter -
 protocol TVShowPresenterProtocol: class {
-
+    func createTVShow(selectedOption: MenuSGV)
+    func selectShow(selectShow: Result)
+    func didRecoverShows(shows:[Result])
+    func showAlert(title: String, message: String)
 }
 
 //MARK: Interactor -
 protocol TVShowInteractorProtocol: class {
-
-  var presenter: TVShowPresenterProtocol?  { get set }
+    var presenter: TVShowPresenterProtocol?  { get set }
+    func willRetriveShows(selectedOption: MenuSGV)
 }
 
 //MARK: View -
 protocol TVShowViewProtocol: class {
-
-  var presenter: TVShowPresenterProtocol?  { get set }
+    
+    var presenter: TVShowPresenterProtocol?  { get set }
+    func succesShows(shows:[Result])
+    func showAlert(title: String, message: String)
 }

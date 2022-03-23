@@ -64,6 +64,7 @@ public enum APIResult<T> {
 public enum MethodNetwork: String {
     case get = "GET"
     case post = "POST"
+    case delete = "DELETE"
 }
 
 class APIManager {

@@ -9,8 +9,9 @@
 //
 
 import UIKit
+import AuthenticationServices
 
-class LoginViewController: UIViewController, LoginViewProtocol {
+class LoginViewController: UIViewController {
     
     // MARK: - Properties
     var presenter: LoginPresenterProtocol?
@@ -32,6 +33,9 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     lazy var txtUser: UITextField = {
         let txtUser = UITextField()
         txtUser.borderStyle = .roundedRect
+        txtUser.autocorrectionType = .no
+        txtUser.autocapitalizationType = .none
+        txtUser.keyboardType = .emailAddress
         txtUser.attributedPlaceholder = NSAttributedString(string: "Username", attributes: attributes)
         txtUser.translatesAutoresizingMaskIntoConstraints = false
         return txtUser
@@ -40,6 +44,7 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     lazy var txtPassword: UITextField = {
         let txtPassword = UITextField()
         txtPassword.borderStyle = .roundedRect
+        txtPassword.isSecureTextEntry = true
         txtPassword.attributedPlaceholder = NSAttributedString(string: "Password", attributes: attributes)
         txtPassword.translatesAutoresizingMaskIntoConstraints = false
         return txtPassword
@@ -58,9 +63,8 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     lazy var lblError: UILabel = {
         let lblError = UILabel()
         lblError.font = UIFont.systemFont(ofSize: 14, weight: .bold)
-        lblError.text = "fjkhsbjfhjsfhkj fhkfhdshfjkshf fhskjfhkjdfh jshfjkdhfj jdkadah"
+        lblError.text = ""
         lblError.textColor = .colorError()
-//        lblError.textAlignment = .center
         lblError.numberOfLines = 0
         lblError.translatesAutoresizingMaskIntoConstraints = false
         return lblError
@@ -74,43 +78,23 @@ class LoginViewController: UIViewController, LoginViewProtocol {
     
     // MARK: - Actions
     @objc func btnLoginAction(_ sender: Any) {
-        debugPrint("Press button")
-        let headers = [
-          "content-type": "application/json;charset=utf-8",
-          "authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhZTc0Y2Y3Y2IwNDdkOGE4MWRiYjcxYWNkMmYxZTVmYSIsInN1YiI6IjYwNWE4MjA4NDdjOWZiMDA2YWJmMzYzNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1cO8-Gn_S7fPoaNO-7LbnJpe-gXbTRlL5OKzxPsH4cY"
-        ]
-        let parameters = ["redirect_to": "http://www.themoviedb.org/"]
+        let user = txtUser.text
+        let pass = txtPassword.text
+        Loader.showLoader(referenceView: self.view)
+        self.presenter?.willGetRequestToken(username: user ?? "", password: pass ?? "")
+    }
+}
 
-        let postData = try? JSONSerialization.data(withJSONObject: parameters, options: [])
-
-        let request = NSMutableURLRequest(url: NSURL(string: "https://api.themoviedb.org/4/auth/request_token")! as URL,
-                                          cachePolicy: .useProtocolCachePolicy,
-                                            timeoutInterval: 10.0)
-        request.httpMethod = "POST"
-        request.allHTTPHeaderFields = headers
-        request.httpBody = postData
-
-        let session = URLSession.shared
-        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
-          if (error != nil) {
-            debugPrint(error)
-          } else {
-              let httpResponse = response as? HTTPURLResponse
-            debugPrint(httpResponse)
-              guard let data = data else { return }
-              do {
-                  let object = try JSONDecoder().decode(TokenNewResponse.self, from: data)
-                  debugPrint(object)
-//                  completion(APIResult.success(object))
-              } catch {
-                  print("error: ", error)
-              }
-          }
-        })
-
-        dataTask.resume()
+extension LoginViewController: LoginViewProtocol {
+    func showHome(session: String) {
+        Loader.hide()
+        self.presenter?.willGoingToHome()
     }
     
+    func mostrarAlerta(mensaje: String) {
+        Loader.hide()
+        lblError.text = mensaje
+    }
 }
 
 // MARK: - UI Setup

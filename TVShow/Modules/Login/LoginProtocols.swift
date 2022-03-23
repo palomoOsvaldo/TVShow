@@ -12,21 +12,30 @@ import Foundation
 
 //MARK: Wireframe -
 protocol LoginWireframeProtocol: class {
-
+    func goingToHome()
 }
 //MARK: Presenter -
 protocol LoginPresenterProtocol: class {
-
+    func willGetRequestToken(username: String, password: String)
+    func willGetSessionNew(requestToken: String)
+    func willGetLogin(username: String, password: String, requestToken: String)
+    
+    func setSession(session: String)
+    func mostrarAlerta(mensaje: String)
+    func willGoingToHome()
 }
 
 //MARK: Interactor -
 protocol LoginInteractorProtocol: class {
-
   var presenter: LoginPresenterProtocol?  { get set }
+    func getRequestToken(username: String, password: String)
+    func getSessionNew(requestToken: String)
 }
 
 //MARK: View -
 protocol LoginViewProtocol: class {
 
   var presenter: LoginPresenterProtocol?  { get set }
+    func showHome(session: String)
+    func mostrarAlerta(mensaje: String)
 }

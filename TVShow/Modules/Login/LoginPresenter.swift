@@ -21,5 +21,29 @@ class LoginPresenter: LoginPresenterProtocol {
         self.interactor = interactor
         self.router = router
     }
+    
+    func setSession(session: String) {
+        view?.showHome(session: session)
+    }
+    
+    func willGetLogin(username: String, password: String, requestToken: String) {
+        
+    }
+
+    func willGetRequestToken(username: String, password: String) {
+        interactor?.getRequestToken(username: username, password: password)
+    }
+    
+    func willGetSessionNew(requestToken: String) {
+        interactor?.getSessionNew(requestToken: requestToken)
+    }
+    
+    func mostrarAlerta(mensaje: String) {
+        view?.mostrarAlerta(mensaje: mensaje)
+    }
+    
+    func willGoingToHome() {
+        router.goingToHome()
+    }
 
 }

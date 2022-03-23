@@ -14,7 +14,7 @@ class TVShowRouter: TVShowWireframeProtocol {
     
     weak var viewController: UIViewController?
     
-    static func createModule(typeView: TypeView) -> UIViewController {
+    static func createModule() -> UIViewController {
         // Change to get view from storyboard if not using progammatic UI
         let view = TVShowViewController()
         let interactor = TVShowInteractor()
@@ -22,20 +22,15 @@ class TVShowRouter: TVShowWireframeProtocol {
         let presenter = TVShowPresenter(interface: view, interactor: interactor, router: router)
         
         view.presenter = presenter
-        view.typeView = typeView
         interactor.presenter = presenter
         router.viewController = view
         
         return view
     }
     
-//    func goingToDetailShow(selectShow: ShowsDB) {
-//        let vc = DetailRouter.createModule(show: selectShow)
-//        viewController?.navigationController?.pushViewController(vc, animated: true)
-//    }
-}
-
-public enum TypeView {
-    case ShowTV
-    case Favorites
+    func goingToDetailShow(selectShow: Result) {
+        let vc = DetailViewController()
+        vc.tvShow = selectShow
+        viewController?.navigationController?.pushViewController(vc, animated: true)
+    }
 }

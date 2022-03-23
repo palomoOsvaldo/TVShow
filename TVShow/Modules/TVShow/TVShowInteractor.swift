@@ -11,6 +11,35 @@
 import UIKit
 
 class TVShowInteractor: TVShowInteractorProtocol {
-
     weak var presenter: TVShowPresenterProtocol?
+    
+    func willRetriveShows(selectedOption: MenuSGV) {
+        let req = GetMovieAPI(selectedOption: selectedOption)
+        APIManager.shared.request(request: req) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.presenter?.didRecoverShows(shows: data.results)
+                }
+            case .failure(let error):
+                debugPrint(error as Any)
+                switch error {
+                case .notNetwork:
+                    debugPrint("No hubo red")
+                    DispatchQueue.main.async {
+                        self.presenter?.showAlert(title: Constants.tituloAlerta, message: Constants.errorNetwork)
+                    }
+                case .unexpectedStatusCode(let status, _):
+                    debugPrint("credenciales")
+                case .timeOut:
+                    debugPrint("TimeOut")
+                    DispatchQueue.main.async {
+                        self.presenter?.showAlert(title: Constants.tituloAlerta, message: Constants.errorTimeOut)
+                    }
+                default:
+                    break
+                }
+            }
+        }
+    }
 }
